@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Yc_ui_guideview_once</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="strPoint">小圆点</string>
+    <string name="strWelLogo">欢迎Logo</string>
+    <string name="strWelcomeToMain">欢迎来到主页</string>
+
+</resources>
