@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 
 public class WelcomeActivity extends Activity implements Runnable {
-	// 是否是第一次使用
-	private boolean isFirstUse;
+	public static final int VERSION = 1;
+	public static SharedPreferences sp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,27 +24,17 @@ public class WelcomeActivity extends Activity implements Runnable {
 			// 延迟两秒时间
 			Thread.sleep(2000);
 			// 读取SharedPreferences中需要的数据
-			SharedPreferences preferences = this.getSharedPreferences(
-					"isFirstUse", Context.MODE_PRIVATE);
-
-			isFirstUse = preferences.getBoolean("isFirstUse", true);
-
+			sp = getSharedPreferences("Y_Setting", Context.MODE_PRIVATE);
 			/**
 			 * 如果用户不是第一次使用则直接调转到显示界面,否则调转到引导界面
 			 */
-			if (isFirstUse) {
+			if (sp.getInt("VERSION", 0) != VERSION) {
 				startActivity(new Intent(WelcomeActivity.this,
 						GuideActivity.class));
 			} else {
 				startActivity(new Intent(WelcomeActivity.this,
 						MainActivity.class));
 			}
-			// 实例化Editor对象
-			Editor editor = preferences.edit();
-			// 存入数据
-			editor.putBoolean("isFirstUse", false);
-			// 提交修改
-			editor.commit();
 			finish();
 
 		} catch (Exception e) {

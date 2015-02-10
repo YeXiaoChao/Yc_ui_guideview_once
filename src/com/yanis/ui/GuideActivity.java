@@ -1,7 +1,6 @@
 package com.yanis.ui;
 
 import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
 /**
  * 
  * @author YeChao
@@ -41,7 +41,7 @@ public class GuideActivity extends Activity implements OnPageChangeListener {
 	private void initView() {
 		// 实例化ViewPager
 		viewPager = (ViewPager) findViewById(R.id.viewpager);
-		
+
 		// 实例化各个界面的布局对象
 		LayoutInflater mLi = LayoutInflater.from(this);
 		view1 = mLi.inflate(R.layout.guide_view1, null);
@@ -56,7 +56,7 @@ public class GuideActivity extends Activity implements OnPageChangeListener {
 		views.add(view2);
 		views.add(view3);
 		views.add(view4);
-		
+
 		// 设置监听
 		viewPager.setOnPageChangeListener(this);
 		// 设置适配器数据
@@ -68,20 +68,14 @@ public class GuideActivity extends Activity implements OnPageChangeListener {
 		btnStart.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startToMain();
+				// 存入数据并提交
+				WelcomeActivity.sp.edit()
+						.putInt("VERSION", WelcomeActivity.VERSION).commit();
+				startActivity(new Intent(GuideActivity.this, MainActivity.class));
+				finish();
 			}
 
 		});
-	}
-
-	/**
-	 * 跳转到主页事件
-	 */
-	private void startToMain() {
-		Intent intent = new Intent();
-		intent.setClass(GuideActivity.this, MainActivity.class);
-		startActivity(intent);
-		this.finish();
 	}
 
 	/**
